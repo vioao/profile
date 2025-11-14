@@ -1,5 +1,7 @@
 import type { Profile } from "@/schemas/profile";
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL;
+
 export const profile: Profile = {
   version: "2.0.0",
   id: "alex-chen-2024",
@@ -8,7 +10,7 @@ export const profile: Profile = {
   person: {
     name: "Victory",
     headline: "Full-Stack Developer & Indie Maker",
-    avatar: "/avatar.jpg",
+    avatar: `${BASE_URL}/avatar.jpg`,
     location: "China, Shenzhen",
     availability: {
       hiring: false,

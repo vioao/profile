@@ -17,5 +17,11 @@
       "invocation_logs": true,
       "persist": true
     }
-  }
+  },
+  "routes": [
+    {
+      "pattern": "me.victoryhub.cc",
+      "custom_domain": true
+    }
+  ]
 }
