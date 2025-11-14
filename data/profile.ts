@@ -8,8 +8,7 @@ export const profile: Profile = {
   person: {
     name: "Victory",
     headline: "Full-Stack Developer & Indie Maker",
-    avatar:
-      "https://pbs.twimg.com/profile_images/1948344704019595264/eyWo9pq3_400x400.jpg",
+    avatar: "/avatar.jpg",
     location: "China, Shenzhen",
     availability: {
       hiring: false,
