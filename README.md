@@ -174,8 +174,8 @@ Built your profile with this template? We'd love to see it! Open an issue or PR 
 
 If you have questions or need help:
 
-- Open an [issue](https://github.com/vioao/profile/issues)
-- Check existing [discussions](https://github.com/vioao/profile/discussions)
+- Open an [issue](https://github.com/victorymakes/profile/issues)
+- Check existing [discussions](https://github.com/victorymakes/profile/discussions)
 - Review the documentation above
 
 ---

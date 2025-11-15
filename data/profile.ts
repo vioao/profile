@@ -12,11 +12,7 @@ export const profile: Profile = {
     headline: "Full-Stack Developer & Indie Maker",
     avatar: `${BASE_URL}/avatar.png`,
     location: "China, Shenzhen",
-    availability: {
-      hiring: false,
-      freelance: true,
-      speaking: false,
-    },
+    status: "🚀 Building launchsaas.org",
   },
 
   contact: [

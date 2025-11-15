@@ -14,12 +14,6 @@ const socialSchema = z.object({
   url: z.url(),
 });
 
-const imageSchema = z.object({
-  src: z.string(),
-  alt: z.string().optional(),
-  title: z.string().optional(),
-});
-
 const workSchema = z.object({
   id: z.string().optional(),
   role: z.string(),
@@ -66,19 +60,13 @@ const languageSchema = z.object({
   level: z.string().optional(),
 });
 
-const availabilitySchema = z.object({
-  hiring: z.boolean().optional(),
-  freelance: z.boolean().optional(),
-  speaking: z.boolean().optional(),
-});
-
 const personSchema = z.object({
   name: z.string(),
   headline: z.string().optional(),
   pronouns: z.string().optional(),
   avatar: z.url().optional(),
   location: z.string().optional(),
-  availability: availabilitySchema.optional(),
+  status: z.string().optional(),
 });
 
 export const profileSchema = z.object({

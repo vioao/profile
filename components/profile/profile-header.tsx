@@ -56,35 +56,15 @@ export function ProfileHeader({ person, contact, cta }: ProfileHeaderProps) {
         </div>
       )}
 
-      {person.availability && (
+      {person.status && (
         <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground">
-          {person.availability.freelance && (
-            <div className="flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
-              </span>
-              <span>Available for freelance work</span>
-            </div>
-          )}
-          {person.availability.hiring && (
-            <div className="flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
-              </span>
-              <span>Available for hiring</span>
-            </div>
-          )}
-          {person.availability.speaking && (
-            <div className="flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
-              </span>
-              <span>Available for speaking engagements</span>
-            </div>
-          )}
+          <div className="flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
+            </span>
+            <span>{person.status}</span>
+          </div>
         </div>
       )}
 
