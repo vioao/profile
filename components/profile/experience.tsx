@@ -12,7 +12,7 @@ export function ExperienceSection({ work }: ExperienceSectionProps) {
 
   return (
     <Section id="experience" title="Work Experience">
-      <div className="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:h-full before:w-0.5 before:-translate-x-px before:bg-gradient-to-b before:from-transparent before:via-border before:to-transparent md:before:ml-[8.75rem]">
+      <div className="space-y-8">
         {work.map((job, index) => (
           <div key={index} className="relative flex gap-4 md:gap-8">
             <div className="flex-1 space-y-3">
