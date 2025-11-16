@@ -1,6 +1,5 @@
+import { BASE_URL } from "@/lib/env";
 import type { Profile } from "@/schemas/profile";
-
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL;
 
 export const profile: Profile = {
   version: "2.0.0",

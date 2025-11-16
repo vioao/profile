@@ -17,9 +17,10 @@ import { getCurrentYear } from "@/lib/date";
 import { Button } from "@/components/ui/button";
 import { LuGithub } from "react-icons/lu";
 import Link from "next/link";
+import { BASE_URL } from "@/lib/env";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+  metadataBase: new URL(BASE_URL),
   icons: {
     icon: `${profile.person.avatar}`,
   },
