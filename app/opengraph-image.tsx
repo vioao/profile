@@ -12,6 +12,22 @@ export const size = {
 
 export const contentType = "image/png";
 
+// Unsupported image type: unknown in production only
+// https://github.com/vercel/satori/issues/626
+async function fetchImageAsBase64(url: string): Promise<string> {
+  const response = await fetch(url, {
+    headers: {
+      "User-Agent":
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    },
+    cache: "force-cache",
+  });
+  const arrayBuffer = await response.arrayBuffer();
+  const base64 = Buffer.from(arrayBuffer).toString("base64");
+  const type = response.headers.get("content-type");
+  return `data:${type || "image/png"};base64,${base64}`;
+}
+
 // Image generation
 export default async function Image() {
   return new ImageResponse(
@@ -71,7 +87,7 @@ export default async function Image() {
               }}
             >
               <img
-                src={profile.person.avatar}
+                src={await fetchImageAsBase64(profile.person.avatar)}
                 alt={profile.person.name}
                 width="150"
                 height="150"
