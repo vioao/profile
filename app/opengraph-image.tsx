@@ -12,37 +12,42 @@ export const size = {
 
 export const contentType = "image/png";
 
-// Unsupported image type: unknown in production only
+// Fetch and convert image to base64
 // https://github.com/vercel/satori/issues/626
-async function fetchImageAsBase64(url: string): Promise<string> {
-  const response = await fetch(url, {
-    headers: {
-      "User-Agent":
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    },
-    cache: "force-cache",
-  });
-  const arrayBuffer = await response.arrayBuffer();
-  const base64 = Buffer.from(arrayBuffer).toString("base64");
-  const type = response.headers.get("content-type");
-  return `data:${type || "image/png"};base64,${base64}`;
+async function fetchImageAsBase64(url: string): Promise<string | null> {
+  console.log("Fetching avatar for OG image:", url);
+  try {
+    const response = await fetch(url);
+    if (!response.ok) return null;
+
+    const arrayBuffer = await response.arrayBuffer();
+    const base64 = Buffer.from(arrayBuffer).toString("base64");
+    const contentType = response.headers.get("content-type") || "image/png";
+    return `data:${contentType};base64,${base64}`;
+  } catch (error) {
+    console.error("Failed to fetch avatar:", error);
+    return null;
+  }
 }
 
 // Image generation
 export default async function Image() {
-  // Ensure skills is an array
-  const skills = Array.isArray(profile.skills) ? profile.skills : [];
-  const topSkills = skills.slice(0, 5);
+  const skills = Array.isArray(profile.skills)
+    ? profile.skills.slice(0, 5)
+    : [];
 
-  // Fetch avatar if available
-  let avatarBase64: string | null = null;
-  if (profile.person.avatar) {
-    try {
-      avatarBase64 = await fetchImageAsBase64(profile.person.avatar);
-    } catch (error) {
-      console.error("Failed to fetch avatar:", error);
-    }
-  }
+  // Fetch avatar if URL is provided
+  const avatarBase64 = profile.person.avatar
+    ? await fetchImageAsBase64(profile.person.avatar)
+    : null;
+
+  // Generate initials from name as fallback
+  const initials = profile.person.name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
 
   return new ImageResponse(
     (
@@ -88,7 +93,7 @@ export default async function Image() {
           }}
         >
           {/* Avatar */}
-          {avatarBase64 && (
+          {avatarBase64 ? (
             <div
               style={{
                 width: "150px",
@@ -109,6 +114,25 @@ export default async function Image() {
                   objectFit: "cover",
                 }}
               />
+            </div>
+          ) : (
+            <div
+              style={{
+                width: "150px",
+                height: "150px",
+                borderRadius: "50%",
+                border: "4px solid rgba(99, 102, 241, 0.5)",
+                boxShadow: "0 0 40px rgba(99, 102, 241, 0.3)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+                fontSize: "60px",
+                fontWeight: "bold",
+                color: "#ffffff",
+              }}
+            >
+              {initials}
             </div>
           )}
 
@@ -155,7 +179,7 @@ export default async function Image() {
           )}
 
           {/* Top Skills - Display first 5 */}
-          {topSkills.length > 0 && (
+          {skills.length > 0 && (
             <div
               style={{
                 display: "flex",
@@ -166,7 +190,7 @@ export default async function Image() {
                 marginTop: "24px",
               }}
             >
-              {topSkills.map((skill) => (
+              {skills.map((skill) => (
                 <div
                   key={skill.text}
                   style={{

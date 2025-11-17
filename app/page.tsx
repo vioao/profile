@@ -21,7 +21,6 @@ import { BASE_URL } from "@/lib/env";
 export const revalidate = false;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
   icons: {
     icon: `${profile.person.avatar}`,
   },

@@ -1,6 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/shared/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { Metadata } from "next";
+import { BASE_URL } from "@/lib/env";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,6 +14,10 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+export const metadata: Metadata = {
+  metadataBase: new URL(BASE_URL),
+};
 
 export default function RootLayout({
   children,
