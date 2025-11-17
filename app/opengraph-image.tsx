@@ -12,43 +12,8 @@ export const size = {
 
 export const contentType = "image/png";
 
-// Fetch and convert image to base64
-// https://github.com/vercel/satori/issues/626
-async function fetchImageAsBase64(url: string): Promise<string | null> {
-  console.log("Fetching avatar for OG image:", url);
-  try {
-    const response = await fetch(url);
-    if (!response.ok) return null;
-
-    const arrayBuffer = await response.arrayBuffer();
-    const base64 = Buffer.from(arrayBuffer).toString("base64");
-    const contentType = response.headers.get("content-type") || "image/png";
-    return `data:${contentType};base64,${base64}`;
-  } catch (error) {
-    console.error("Failed to fetch avatar:", error);
-    return null;
-  }
-}
-
 // Image generation
 export default async function Image() {
-  const skills = Array.isArray(profile.skills)
-    ? profile.skills.slice(0, 5)
-    : [];
-
-  // Fetch avatar if URL is provided
-  const avatarBase64 = profile.person.avatar
-    ? await fetchImageAsBase64(profile.person.avatar)
-    : null;
-
-  // Generate initials from name as fallback
-  const initials = profile.person.name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase()
-    .slice(0, 2);
-
   return new ImageResponse(
     (
       <div
@@ -93,7 +58,7 @@ export default async function Image() {
           }}
         >
           {/* Avatar */}
-          {avatarBase64 ? (
+          {profile.person.avatar ? (
             <div
               style={{
                 width: "150px",
@@ -106,7 +71,7 @@ export default async function Image() {
               }}
             >
               <img
-                src={avatarBase64}
+                src={profile.person.avatar}
                 alt={profile.person.name}
                 width="150"
                 height="150"
@@ -132,7 +97,12 @@ export default async function Image() {
                 color: "#ffffff",
               }}
             >
-              {initials}
+              {profile.person.name
+                .split(" ")
+                .map((n) => n[0])
+                .join("")
+                .toUpperCase()
+                .slice(0, 2)}
             </div>
           )}
 
@@ -179,7 +149,7 @@ export default async function Image() {
           )}
 
           {/* Top Skills - Display first 5 */}
-          {skills.length > 0 && (
+          {profile.skills && profile.skills.length > 0 && (
             <div
               style={{
                 display: "flex",
@@ -190,7 +160,7 @@ export default async function Image() {
                 marginTop: "24px",
               }}
             >
-              {skills.map((skill) => (
+              {profile.skills.slice(0, 5).map((skill) => (
                 <div
                   key={skill.text}
                   style={{
