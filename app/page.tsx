@@ -18,8 +18,6 @@ import { LuGithub } from "react-icons/lu";
 import Link from "next/link";
 import { BASE_URL } from "@/lib/env";
 
-export const revalidate = false;
-
 export const metadata: Metadata = {
   icons: {
     icon: `${profile.person.avatar}`,
@@ -40,7 +38,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: `${BASE_URL}/og.png`,
+        url: "/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: `${profile.person.name} - ${profile.person.headline}`,
@@ -51,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${profile.person.name} - ${profile.person.headline}`,
     description: profile.about?.bio,
-    images: [`${BASE_URL}/og.png`],
+    images: ["/opengraph-image.png"],
   },
 };
 

@@ -47,3 +47,5 @@ cloudflare-env.d.ts
 
 # IDEs and editors
 /.idea/
+
+/public/opengraph-image.png
